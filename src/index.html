@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <link rel="stylesheet" href="output.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <title>Marketing Walay</title>
+    <style>
+      /* Optional: Add any additional styles here */
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+      .slider {
+        position: relative;
+        overflow: hidden;
+      }
+      .slides {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        height: 100%;
+      }
+
+      .slide {
+        min-width: 100%;
+        box-sizing: border-box;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 60vh; /* Adjust based on viewport */
+        object-fit: cover;
+      }
+
+      /* Add padding when mobile to ensure it's not hidden */
+      @media (max-width: 768px) {
+        .slide img {
+          height: 50vh;
+        }
+      }
+
+      .hover-border-effect {
+        position: relative;
+        overflow: hidden;
+      }
+      .hover-border-effect::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 4px;
+        background: #22c55e;
+        bottom: 0;
+        right: 0;
+        transition: width 0.3s ease;
+      }
+      .hover-border-effect::before {
+        content: "";
+        position: absolute;
+        width: 4px;
+        height: 0;
+        background: #22c55e;
+        bottom: 0;
+        right: 0;
+        transition: height 0.3s ease;
+      }
+      .hover-border-effect:hover::after {
+        width: 100%;
+      }
+      .hover-border-effect:hover::before {
+        height: 100%;
+      }
+      .slide-animation {
+        transition: transform 0.5s ease-in-out;
+      }
+
+      /* Hover transition for cards */
+      .testimonial-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar section-->
+    <!-- Navbar section-->
+    <header class="z-10 h-auto overflow-hidden relative">
+      <nav
+        x-data="{ isOpen: false, slideOpen: false }"
+        class="bg-white w-screen border-b shadow-md h-32 z-30 flex justify-between"
+      >
+        <div
+          class="container z-40 mx-auto px-2 md:flex md:justify-between md:items-center"
+        >
+          <div class="flex items-center z-20 justify-between">
+            <a class="w-auto" href="#">
+              <img class="w-36 md:w-44 z-10" src="./img/logo.png" alt="" />
+            </a>
+
+            <!-- Mobile menu button -->
+            <div class="flex md:hidden">
+              <button
+                x-cloak
+                @click="isOpen = !isOpen"
+                type="button"
+                class="text-black font-bold hover:text-gray-600 focus:outline-none focus:text-gray-800"
+                aria-label="toggle menu"
+              >
+                <svg
+                  x-show="!isOpen"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M4 8h16M4 16h16"
+                  />
+                </svg>
+                <svg
+                  x-show="isOpen"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+          <div
+            x-cloak
+            :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']"
+            class="absolute inset-x-0 z-20 w-full px-6 py-4 flex flex-col items-center justify-center top-18 transition-all duration-500 ease-in-out bg-[#eceaed] md:flex-row bg-opacity-60 md:bg-transparent md:mt-0 md:p-0 md:top-0 md:relative md:w-auto md:opacity-100 md:translate-x-0 md:flex md:items-center"
+          >
+            <div
+              class="flex flex-col items-center md:flex-row md:mx-1 gap-1 lg:gap-5 font-body"
+            >
+              <a
+                class="my-2 text-black text-lg font-medium text-center border-b-2 border-transparent hover:border-blue-500 md:mx-4 md:my-0"
+                href="#Home"
+                >Home</a
+              >
+              <a
+                class="my-2 text-black text-lg font-medium text-center border-b-2 border-transparent hover:border-blue-500 md:mx-4 md:my-0"
+                href="./about.html"
+                >About</a
+              >
+
+              <div
+                class="relative dropdown"
+                @mouseenter="slideOpen = true"
+                @mouseleave="slideOpen = false"
+              >
+                <a
+                  @click.prevent="slideOpen = !slideOpen"
+                  class="my-2 text-black text-lg font-medium text-center border-b-2 border-transparent hover:border-blue-500 md:mx-4 md:my-0"
+                  href="#"
+                  >Services</a
+                >
+                <div
+                  x-show="slideOpen"
+                  @click.away="slideOpen = false"
+                  class="absolute right-0 w-56 bg-white text-gray-800 shadow-lg text-center rounded-lg z-10 hidden dropdown-content"
+                >
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-200"
+                    >Web Design</a
+                  >
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-200">SEO</a>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-200"
+                    >Marketing</a
+                  >
+                </div>
+              </div>
+
+              <a
+                class="my-2 text-black text-lg font-medium text-center border-b-2 border-transparent hover:border-blue-500 md:mx-4 md:my-0"
+                href="#"
+                >Blogs</a
+              >
+              <a
+                class="my-2 text-black text-lg font-medium text-center border-b-2 border-transparent hover:border-blue-500 md:mx-4 md:my-0"
+                href="#"
+                >Contact</a
+              >
+            </div>
+            <div class="relative mt-4 md:mt-0 w-full md:w-auto">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                <svg
+                  class="w-5 h-5 text-gray-400"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+              </span>
+              <input
+                type="text"
+                class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-lg focus:border-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
+                placeholder="Search"
+              />
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- Slider Section -->
+    <div class="slider w-full">
+      <div class="slides" id="slides">
+        <div class="slide">
+          <img src="./img/slide1.jpg" alt="Slide 1" />
+          <div
+            class="absolute text-center z-10 text-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+          >
+            <h2 class="text-4xl font-bold">Slide 1</h2>
+            <p class="mt-2">This is the content for slide 1.</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="./img/slide2.jpg" alt="Slide 2" />
+          <div
+            class="absolute text-center z-10 text-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+          >
+            <h2 class="text-4xl font-bold">Slide 2</h2>
+            <p class="mt-2">This is the content for slide 2.</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="./img/slide3.jpeg" alt="Slide 3" />
+          <div
+            class="absolute text-center z-10 text-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+          >
+            <h2 class="text-4xl font-bold">Slide 3</h2>
+            <p class="mt-2">This is the content for slide 3.</p>
+          </div>
+        </div>
+      </div>
+
+      <button
+        id="prev"
+        class="absolute p-4 md:p-6 lg:p-8 left-4 top-1/2 transform -translate-y-1/2 bg-gray-900 bg-opacity-70 text-xl text-white rounded-full shadow-xl"
+      >
+        &#10094;
+      </button>
+      <button
+        id="next"
+        class="absolute right-4 p-4 md:p-6 lg:p-8 top-1/2 transform -translate-y-1/2 bg-gray-900 bg-opacity-70 text-xl text-white rounded-full shadow-xl"
+      >
+        &#10095;
+      </button>
+    </div>
+
+    <!-- card  -->
+    <div class="max-w-7xl my-5 p-10 mx-auto relative">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-800">
+          Popular Services
+        </h1>
+        <button
+          class="px-2 py-2 bg-green-500 text-white font-medium rounded hover:bg-green-600"
+        >
+          Projects Explore
+        </button>
+      </div>
+      <h2 class="text-lg font-bold text-gray-600 mb-6">What We Do</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        <!-- Card 1 -->
+        <div
+          class="bg-white shadow-md rounded-lg p-6 text-center transform transition-transform duration-300 hover:scale-105 hover-border-effect"
+        >
+          <div class="text-green-500 text-4xl flex justify-center mb-4"><img class="w-14 h-14" src="./img/web.png" alt=""></div>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">
+            Web Development
+          </h2>
+          <p class="text-gray-600 mb-4">
+            Powerful web solutions, crafted to meet your unique needs.
+          </p>
+          <button
+            class="px-4 py-2 bg-green-500 text-white font-medium rounded hover:bg-green-600"
+          >
+            Learn More
+          </button>
+        </div>
+        <!-- Card 2 -->
+        <div
+          class="bg-white shadow-md rounded-lg p-6 text-center transform transition-transform duration-300 hover:scale-105 hover-border-effect"
+        >
+        <div class="text-green-500 text-4xl flex justify-center mb-4"><img class="w-14 h-14" src="./img/logodesign.png" alt=""></div>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Logo Making</h2>
+          <p class="text-gray-600 mb-4">
+            Designing memorable logos that make your brand stand out.
+          </p>
+          <button
+            class="px-4 py-2 bg-green-500 text-white font-medium rounded hover:bg-green-600"
+          >
+            Learn More
+          </button>
+        </div>
+        <!-- Card 3 -->
+        <div
+          class="bg-white shadow-md rounded-lg p-6 text-center transform transition-transform duration-300 hover:scale-105 hover-border-effect"
+        >
+        <div class="text-green-500 text-4xl flex justify-center mb-4"><img class="w-14 h-14" src="./img/Social.png" alt=""></div>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">
+            Social Media Marketing
+          </h2>
+          <p class="text-gray-600 mb-4">
+            Unlock the power of social media with expert management.
+          </p>
+          <button
+            class="px-4 py-2 bg-green-500 text-white font-medium rounded hover:bg-green-600"
+          >
+            Learn More
+          </button>
+        </div>
+        <!-- Card 4 -->
+        <div
+          class="bg-white shadow-md rounded-lg p-6 text-center transform transition-transform duration-300 hover:scale-105 hover-border-effect"
+        >
+        <div class="text-green-500 text-4xl flex justify-center mb-4"><img class="w-14 h-14" src="./img/UX.png" alt=""></div>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">UI/UX Design</h2>
+          <p class="text-gray-600 mb-4">
+            Elevate your digital experiences with captivating UI/UX design.
+          </p>
+          <button
+            class="px-4 py-2 bg-green-500 text-white font-medium rounded hover:bg-green-600"
+          >
+            Learn More
+          </button>
+        </div>
+        <!-- Card 5 -->
+        <div
+          class="bg-white shadow-md rounded-lg p-6 text-center transform transition-transform duration-300 hover:scale-105 hover-border-effect"
+        >
+        <div class="text-green-500 text-4xl flex justify-center mb-4"><img class="w-14 h-14" src="./img/seo.png" alt=""></div>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">
+            SEO
+          </h2>
+          <p class="text-gray-600 mb-4">
+            Experience scalability and efficiency with comprehensive solutions.
+          </p>
+          <button
+            class="px-4 py-2 bg-green-500 text-white font-medium rounded hover:bg-green-600"
+          >
+            Learn More
+          </button>
+        </div>
+        <!-- Card 6 -->
+        <div
+          class="bg-white shadow-md rounded-lg p-6 text-center transform transition-transform duration-300 hover:scale-105 hover-border-effect"
+        >
+        <div class="text-green-500 text-4xl flex justify-center mb-4"><img class="w-14 h-14" src="./img/app.png" alt=""></div>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">
+            Mobile App Development
+          </h2>
+          <p class="text-gray-600 mb-4">
+            Transform your ideas into innovative mobile apps.
+          </p>
+          <button
+            class="px-4 py-2 bg-green-500 text-white font-medium rounded hover:bg-green-600"
+          >
+            Learn More
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container max-w-7xl p-10 my-10 mx-auto">
+      <div class="items-center gap-4 lg:flex">
+        <div class="w-full lg:w-1/2">
+          <div class="lg:max-w-lg">
+            <h4 class="my-5 text-green-500 font-bold">WHO WE ARE</h4>
+            <h1 class="my-3 font-bold text-3xl">
+              Why Choose Our Platform – Your One-Stop Digital Solution
+            </h1>
+            <p class="text-justify text-lg text-black">
+              At Marketingwaly, we are committed to offering our clients
+              exceptional services that deliver measurable results. Whether you
+              need website development, custom software solutions, or mobile app
+              development, we provide everything your business needs to thrive
+              in the digital landscape. Here’s why partnering with us is the
+              smartest choice for your business.
+            </p>
+            <div class="my-2 bg-[#02a95c] p-5 rounded-lg relative">
+              <div class="my-5 w-full relative">
+                <ul class="list-none">
+                  <li class="my-2 text-white text-lg">
+                    <span class="m-5 text-white font-bold">&#10003;</span
+                    >Award-winning projects
+                  </li>
+                  <li class="my-2 text-white text-lg">
+                    <span class="m-5 text-white font-bold">&#10003;</span
+                    >Successful client partnerships
+                  </li>
+                  <li class="my-2 text-white text-lg">
+                    <span class="m-5 text-white font-bold">&#10003;</span
+                    >Experts ~ Best of the Best
+                  </li>
+                </ul>
+              </div>
+              <button
+                class="md:p-4 p-1 text-white font-bold bg-[#02a95c] hover:bg-[#02a95c] hover:scale-105 transition duration-300 border-2 border-white rounded-full"
+              >
+                Talk to Our Team Now!
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="flex items-center justify-center w-full h-full lg:mt-0 lg:w-1/2"
+        >
+          <img
+            class="w-full h-full lg:max-w-3xl"
+            src="./img/digital-marketing-5816304_1920.jpg"
+            alt="Catalogue-pana.svg"
+          />
+        </div>
+      </div>
+    </div>
+    <!-- counter -->
+    <section class="bg-white">
+      <div
+        class="container mx-auto bg-[#02a95c] px-4 py-10 rounded-lg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-white text-center"
+      >
+        <!-- Counter 1 -->
+        <div class="flex flex-col items-center">
+          <svg
+            class="w-12 h-12 mb-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 12h6m2 4H7m4-8h2m-6 6V6a2 2 0 012-2h4a2 2 0 012 2v12a2 2 0 01-2 2H9a2 2 0 01-2-2v-4z"
+            />
+          </svg>
+          <div class="text-4xl md:text-5xl font-bold" id="counter1">0k</div>
+          <p class="text-lg md:text-xl mt-2">Projects Completed</p>
+        </div>
+        <!-- Counter 2 -->
+        <div class="flex flex-col items-center">
+          <svg
+            class="w-12 h-12 mb-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17 21v-2a4 4 0 00-8 0v2m4-8a4 4 0 100-8 4 4 0 000 8zm6 8a6 6 0 10-12 0v2h12v-2z"
+            />
+          </svg>
+          <div class="text-4xl md:text-5xl font-bold" id="counter2">0k</div>
+          <p class="text-lg md:text-xl mt-2">Happy Customers</p>
+        </div>
+        <!-- Counter 3 -->
+        <div class="flex flex-col items-center">
+          <svg
+            class="w-12 h-12 mb-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13 16h-1v-4h-1m2 4h.01M17 9v10M7 16V9m5 6h-.01"
+            />
+          </svg>
+          <div class="text-4xl md:text-5xl font-bold" id="counter3">0%</div>
+          <p class="text-lg md:text-xl mt-2">Customer Satisfaction</p>
+        </div>
+      </div>
+    </section>
+    <!-- Counter End -->
+
+    <!-- testimonial -->
+    <div class="max-w-7xl my-10 mx-auto">
+      <!-- Section Header -->
+      <div class="text-center mb-8">
+        <h2 class="text-4xl font-bold text-gray-800">
+          What People Say About Us...
+        </h2>
+        <p class="text-gray-600 mt-2 text-lg">
+          Our clients' satisfaction is our top priority. Read on to see how
+          we've helped businesses like yours succeed!
+        </p>
+      </div>
+
+      <!-- Testimonial Slider -->
+      <div class="relative p-10 overflow-hidden">
+        <!-- Cards Wrapper -->
+        <div id="testimonial-slider" class="flex slide-animation">
+          <!-- Card 1 -->
+          <div
+            class="bg-white p-8 rounded-xl shadow-lg w-full md:w-1/2 lg:w-1/3 shrink-0 mx-4 flex-none testimonial-card"
+          >
+            <div class="flex items-center mb-4">
+              <img
+                src="https://via.placeholder.com/64"
+                alt="Joe Clark"
+                class="w-16 h-16 rounded-full mr-4"
+              />
+              <div>
+                <h3 class="text-xl font-semibold text-gray-800">Joe Clark</h3>
+                <span class="text-gray-500 text-sm">Customer</span>
+              </div>
+            </div>
+            <p class="text-gray-600 text-base">
+              I can't recommend Marketingway highly enough. Their team delivered
+              a final product that exceeded our expectations.
+            </p>
+            <div class="mt-4">
+              <span class="text-yellow-500 text-2xl"
+                >&#9733;&#9733;&#9733;&#9733;&#9733;</span
+              >
+            </div>
+          </div>
+
+          <!-- Additional cards -->
+          <div
+            class="bg-white p-8 rounded-xl shadow-lg w-full md:w-1/2 lg:w-1/3 shrink-0 mx-4 flex-none testimonial-card"
+          >
+            <div class="flex items-center mb-4">
+              <img
+                src="https://via.placeholder.com/64"
+                alt="Samantha Lee"
+                class="w-16 h-16 rounded-full mr-4"
+              />
+              <div>
+                <h3 class="text-xl font-semibold text-gray-800">
+                  Samantha Lee
+                </h3>
+                <span class="text-gray-500 text-sm">Customer</span>
+              </div>
+            </div>
+            <p class="text-gray-600 text-base">
+              They understood our vision and brought it to life in a way we
+              never could have imagined. We're thrilled with the results.
+            </p>
+            <div class="mt-4">
+              <span class="text-yellow-500 text-2xl"
+                >&#9733;&#9733;&#9733;&#9733;&#9733;</span
+              >
+            </div>
+          </div>
+
+          <!-- Additional cards omitted for brevity -->
+
+          <!-- Duplicate first card for seamless looping -->
+          <div
+            class="bg-white p-8 rounded-xl shadow-lg w-full md:w-1/2 lg:w-1/3 shrink-0 mx-4 flex-none testimonial-card"
+          >
+            <div class="flex items-center mb-4">
+              <img
+                src="https://via.placeholder.com/64"
+                alt="Joe Clark"
+                class="w-16 h-16 rounded-full mr-4"
+              />
+              <div>
+                <h3 class="text-xl font-semibold text-gray-800">Joe Clark</h3>
+                <span class="text-gray-500 text-sm">Customer</span>
+              </div>
+            </div>
+            <p class="text-gray-600 text-base">
+              I can't recommend Marketingway highly enough. Their team delivered
+              a final product that exceeded our expectations.
+            </p>
+            <div class="mt-4">
+              <span class="text-yellow-500 text-2xl"
+                >&#9733;&#9733;&#9733;&#9733;&#9733;</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <button
+          id="prev-btn"
+          class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-200 p-2 sm:p-3 lg:p-4 rounded-full shadow-lg hover:bg-gray-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8 text-gray-800"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
+        <button
+          id="next-btn"
+          class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-200 p-2 sm:p-3 lg:p-4 rounded-full shadow-lg hover:bg-gray-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8 text-gray-800"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- Testmonial card End -->
+    <!-- Chat Section -->
+    <section
+      class="bg-gray-900 py-10 bg-cover bg-center"
+      style="background-image: url('')"
+    >
+      <div class="container mx-auto max-w-7xl px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-white relative">
+          <!-- Vertical Line Between Columns -->
+          <div
+            class="hidden md:block absolute inset-y-0 left-1/2 w-px bg-gray-400"
+          ></div>
+
+          <!-- Column 1: Talk to our Agent -->
+          <div
+            class="flex flex-col justify-center items-center text-center md:text-left md:items-start p-6"
+          >
+            <h3 class="text-2xl font-bold mb-4">Talk to our agent</h3>
+            <p class="text-lg mb-6">
+              We encourage you to connect with our agents to discuss your
+              queries in detail. Our team provides tailored solutions that align
+              perfectly with your specific needs. Whether you're looking for
+              expert guidance or customized service packages, our friendly and
+              knowledgeable agents are here to assist you.
+            </p>
+            <a
+              href="#"
+              class="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition inline-flex items-center"
+            >
+              Talk To An Agent
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+                class="ml-2 w-5 h-5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Column 2: Contact via WhatsApp -->
+          <div
+            class="flex flex-col justify-center items-center text-center md:text-left md:items-start p-6"
+          >
+            <h3 class="text-2xl font-bold mb-4">Contact Via Whatsapp</h3>
+            <p class="text-lg mb-6">
+              Have a quick question? Let’s chat on WhatsApp! Get in touch for
+              fast, personalized assistance and discover how our expertise can
+              transform your business. Our WhatsApp support ensures that you
+              receive real-time responses whenever you need them.
+            </p>
+            <a
+              href="#"
+              class="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition inline-flex items-center"
+            >
+              WhatsApp Now
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+                class="ml-2 w-5 h-5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- chat section end -->
+    <!-- UPdate section start -->
+    <section class="bg-white py-10">
+      <div class="container mx-auto max-w-7xl px-4">
+        <!-- Latest News Section -->
+        <div
+          class="flex flex-col md:flex-row items-center justify-between mb-8"
+        >
+          <div class="text-center md:text-left">
+            <p class="text-sm text-green-600 font-semibold uppercase mb-2">
+              Latest News & Blog
+            </p>
+            <h2 class="text-3xl font-bold">Get Every Update</h2>
+          </div>
+          <div class="mt-4 md:mt-0">
+            <a
+              href="#"
+              class="bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-600 transition"
+            >
+              Latest News
+            </a>
+          </div>
+        </div>
+
+        <!-- Join to Us Section -->
+        <div
+          class="bg-gray-100 py-10 px-6 rounded-lg shadow-lg flex flex-col md:flex-row items-center justify-between"
+        >
+          <!-- Left Content -->
+          <div class="text-center md:text-left mb-6 md:mb-0">
+            <p class="text-sm text-green-600 font-semibold uppercase mb-2">
+              Join to Us
+            </p>
+            <h3 class="text-2xl font-bold mb-4">Not a Member Yet?</h3>
+            <p class="text-lg text-gray-600">
+              Join us! Our members can access savings of up to 50%.
+            </p>
+          </div>
+
+          <!-- Right Content: Logo -->
+          <div>
+            <img
+              src="./img/logo.png"
+              alt="Marketingwaly Logo"
+              class="h-40 w-40"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white">
+      <div class="container mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Logo and Description -->
+          <div>
+            <img src="./img/logo.png" alt="Logo" class="mb-4 w-32 ">
+            <p class="text-gray-400 text-sm">
+              Empowering Businesses through Innovation. Custom software and web development for streamlined operations, boosted productivity, and accelerated growth. Your trusted partner in the digital landscape.
+            </p>
+          </div>
+    
+          <!-- Our Services -->
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Our Services</h3>
+            <ul>
+              <li class="mb-2"><a href="#" class="hover:text-blue-400">Web Development</a></li>
+              <li class="mb-2"><a href="#" class="hover:text-blue-400">UI/UX Design</a></li>
+              <li class="mb-2"><a href="#" class="hover:text-blue-400">Search Engine Optimization</a></li>
+              <li class="mb-2"><a href="#" class="hover:text-blue-400">Application Development</a></li>
+              <li class="mb-2"><a href="#" class="hover:text-blue-400">Logo Designing</a></li>
+              <li><a href="#" class="hover:text-blue-400">Social Media Marketing</a></li>
+            </ul>
+          </div>
+    
+          <!-- Company -->
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Company</h3>
+            <ul>
+              <li class="mb-2"><a href="#" class="hover:text-blue-400">About us</a></li>
+              <li class="mb-2"><a href="#" class="hover:text-blue-400">Latest events</a></li>
+              <li class="mb-2"><a href="#" class="hover:text-blue-400">How it Works</a></li>
+              <li class="mb-2"><a href="#" class="hover:text-blue-400">News & articles</a></li>
+              <li><a href="#" class="hover:text-blue-400">Contact us</a></li>
+            </ul>
+          </div>
+    
+          <!-- Contact -->
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Contact</h3>
+            <ul>
+              <li class="mb-2 flex items-center"><i class="fas fa-phone-alt mr-2"></i> Phone: <a href="tel:+923292150018" class="hover:text-blue-400">+92-3292150018</a></li>
+              <li class="mb-2 flex items-center"><i class="fas fa-envelope mr-2"></i> Email: <a href="mailto:support@marketingwaly.com" class="hover:text-blue-400 ml-2"> support@marketingwaly.com</a></li>
+              <li class="mb-2 flex items-center"><i class="fas fa-envelope mr-2"></i> Email: <a href="mailto:info@marketingwaly.com" class="hover:text-blue-400 ml-2"> info@marketingwaly.com</a></li>
+              <li class="mb-2 flex items-center"><i class="fas fa-envelope mr-2"></i> Email: <a href="mailto:sales@marketingwaly.com" class="hover:text-blue-400 ml-2"> sales@marketingwaly.com</a></li>
+              <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i> Address: 43c, 8th St Phase, Badar Commercial Area,KHI-75500</li>
+            </ul>
+          </div>
+        </div>
+    
+        <hr class="my-6 border-gray-600" />
+    
+        <!-- Newsletter and Social Media -->
+        <div class="flex flex-col md:flex-row items-center justify-between">
+          <div class="flex flex-col md:flex-row items-center gap-4 space-x-4 mb-4 md:mb-0">
+            <input
+              type="email"
+              placeholder="Email address"
+              class="px-4 py-2 w-64 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button
+              class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            >
+              Subscribe
+            </button>
+          </div>
+    
+        
+    
+        <div class="text-center mt-6 text-gray-500 text-sm">
+          &copy; 2023 MarketingWaly. All Rights Reserved.
+        </div>
+      </div>
+    </footer>
+    
+
+    <script src="app.js"></script>
+  </body>
+</html>
