@@ -115,7 +115,8 @@ function animateCounter(id, start, end, duration, suffix = "") {
 
 // Animate counters on page load
 document.addEventListener("DOMContentLoaded", () => {
-  animateCounter("counter1", 0, 841000, 2000, "+");
-  animateCounter("counter2", 0, 620000, 2000, "+");
+  animateCounter("counter1", 0, 8410, 2000, "+");
+  animateCounter("counter2", 0, 6200, 2000, "+");
   animateCounter("counter3", 0, 100, 2000, "%");
 });
+// about us counter

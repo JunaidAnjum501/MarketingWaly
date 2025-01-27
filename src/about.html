@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <link rel="stylesheet" href="output.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+    <title>Marketing Walay</title>
+  </head>
+
+  <body>
+<!-- Navbar Section -->
+    <header
+>
+  <nav
+    x-data="{ isOpen: false }"
+    class="relative w-full h-24 md:h-32 z-30 flex justify-center"
+  >
+    <div
+      class="container px-2 z-30 mx-auto md:flex md:justify-between md:items-center"
+    >
+      <div class="flex items-center z-30 justify-between">
+        <a class="w-auto" href="#">
+          <img class="w-28 h-28 md:w-36 md:h-36  z-30" src="img/logo.png" alt="" />
+        </a>
+
+        <!-- Mobile menu button -->
+        <div class="flex md:hidden">
+          <button
+            x-cloak
+            @click="isOpen = !isOpen"
+            type="button"
+            class="text-black font-bold hover:text-gray-600 focus:outline-none focus:text-gray-800"
+            aria-label="toggle menu"
+          >
+            <svg
+              x-show="!isOpen"
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4 8h16M4 16h16"
+              />
+            </svg>
+
+            <svg
+              x-show="isOpen"
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+      <div
+        x-cloak
+        :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']"
+        class="absolute inset-x-0 z-20 w-full px-6 py-2 flex items-center justify-center  top-[100px] transition-all duration-500 ease-in-out bg-gray-50  md:bg-transparent md:mt-0 md:p-0 md:top-0 md:relative md:w-auto md:opacity-100 md:translate-x-0 md:flex md:items-center"
+      >
+        <div
+          class="flex flex-col items-center md:flex-row md:mx-1 gap-1 lg:gap-5 font-body"
+        >
+          <a
+            class="my-2 text-black text-lg font-medium  text-center border-b-2 border-transparent hover:border-blue-500 md:mx-4 md:my-0"
+            href="#Home"
+            >Home</a
+          >
+          <a
+            class="my-2 text-black text-lg font-medium  text-center border-b-2 border-transparent hover:border-blue-500 md:mx-4 md:my-0"
+            href="./about.html"
+            >About</a
+          >
+          <!-- Services Dropdown -->
+          <div class="relative group">
+            <a
+              class="my-2 text-black text-lg font-medium text-center border-b-2 border-transparent hover:border-blue-500 md:mx-4 md:my-0 cursor-pointer"
+              href="#Services"
+              >Services</a
+            >
+            <div
+              class="absolute hidden group-hover:flex  flex-col bg-white shadow-lg rounded-lg w-72 "
+            >
+            <a href="#" class="block px-4 py-4 font-medium border-b-2 border-transparent hover:border-blue-500 hover:bg-gray-200"
+            >Web Development</a
+          >
+          <a href="#" class="block px-4 py-4 font-medium border-b-2 border-transparent hover:border-blue-500 hover:bg-gray-200">Search Engine Optimization</a>
+          <a href="#" class="block px-4 py-4 font-medium border-b-2 border-transparent hover:border-blue-500 hover:bg-gray-200"
+            >Social Media Marketing</a
+          >
+          <a href="#" class="block px-4 py-4 font-medium border-b-2 border-transparent hover:border-blue-500 hover:bg-gray-200">
+          Application Development</a> 
+        
+        <a href="#" class="block px-4 py-4 font-medium border-b-2 border-transparent hover:border-blue-500 hover:bg-gray-200">UI/UX Design</a>
+        <a href="#" class="block px-4 py-4 font-medium border-b-2 border-transparent hover:border-blue-500 hover:bg-gray-200"
+          >Logo Design</a
+        >
+            </div>
+          </div>
+          <a
+            class="my-2 text-black text-lg font-medium  text-center border-b-2 border-transparent hover:border-blue-500 md:mx-4 md:my-0"
+            href="./gallery.html"
+            >Blog</a
+          >
+          <a
+            class="my-2 text-black text-lg font-medium  text-center border-b-2 border-transparent hover:border-blue-500 md:mx-4 md:my-0"
+            href="#Contact"
+            >Contact</a
+          >
+        </div>
+        <div class="relative mt-4 md:mt-0 w-full md:w-auto">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <svg
+              class="w-5 h-5 text-gray-400"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+          </span>
+          <input
+            type="text"
+            class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-lg focus:border-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
+            placeholder="Search"
+          />
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<!-- End Navbar -->
+
+
+
+
+
+<!-- Banner Section -->
+<section class="custom-banner relative w-full h-screen bg-cover bg-center overflow-hidden">
+  <div class="flex items-center justify-center h-full px-4">
+    <div class="text-center max-w-3xl">
+      <h1 class="text-4xl md:text-6xl font-bold text-white">Marketingwaly</h1>
+      <p class="text-lg md:text-xl text-white mt-4">Creating Future, One keystroke at a time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section  py-12 bg-gray-100 ">
+  <div class="container max-w-7xl mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16  items-center">
+      <!-- Text Content -->
+      <div>
+        <h2 class="text-lg text-green-600 font-bold mb-4">ABOUT US</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Welcome to Marketingwaly</h2>
+        <p class="text-gray-600 leading-relaxed text-lg text-justify">
+          Welcome to Marketingwaly. We are dedicated to delivering innovative solutions that address the ever-evolving needs of businesses and individuals worldwide.
+        </p>
+        <p class="text-gray-600 leading-relaxed text-lg mt-4 text-justify">
+          At Marketingwaly, we offer a comprehensive range of services designed to empower organizations and individuals with cutting-edge technology. Our team of skilled
+           professionals is committed to understanding your unique requirements and delivering tailored solutions that drive growth, efficiency, and success.With our software development expertise, we transform your ideas into reality. Whether you need a custom software solution, web development, mobile app development, or product development, we employ industry best practices and the latest technologies to create high-quality, scalable, and user-friendly applications that drive productivity and engagement.
+        </p>
+      </div>
+      <!-- Image Content -->
+      <div class="">
+        <img class="rounded-lg shadow-md w-[450px] h-[450px]
+         " src="https://marketingwaly.com/wp-content/plugins/funden-themer/elementor/assets/images/image-1.jpg" alt="About us image 1">
+      
+    </div>
+  </div>
+</section>
+
+<style>
+/* Banner Styling */
+/* Banner Styling */
+.custom-banner {
+  position: relative;
+  background-image: url('./img/slide3.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: backgroundZoom 10s infinite, changeBg 10s infinite;
+  overflow: hidden;
+}
+
+@keyframes backgroundZoom {
+  0% {
+    background-size: 100%;
+  }
+  100% {
+    background-size: 100%;
+  }
+}
+
+@keyframes changeBg {
+  0%, 100% {
+    background-image: url('./img/slide3.jpeg');
+  }
+  50% {
+    background-image: url('./img/slide2.jpg');
+  }
+}
+
+.about-section img {
+  transition: transform 0.3s ease;
+}
+
+.about-section img:hover {
+  transform: scale(1.05);
+}
+</style>
+
+<!-- About US -->
+<div class="bg-white py-20 px-6 lg:px-16">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+    <!-- Image Section -->
+    <div class="flex flex-col py-4 items-center justify-center">
+      <img
+        src="https://marketingwaly.com/wp-content/uploads/2021/04/project-10-1-600x540.jpg"
+        alt="Marketing illustration"
+        class="max-w-full rounded-full shadow-lg"
+      />
+      <divv class="mt-5">
+      <!-- First Column Content -->
+      <div class="mb-12">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+      <svg
+        class="w-6 h-6  text-green-500 mr-2"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 13l4 4L19 7"
+        />
+      </svg>
+      Exceptional Quality and Reliability
+      </h2>
+     <p class="text-gray-600 mb-6">
+      At Marketingway, we are committed to delivering solutions of the highest quality.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+      <svg
+        class="w-6 h-6 text-green-500 mr-2"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 13l4 4L19 7"
+        />
+      </svg>
+      Timely and Transparent Communication
+      </h2>
+      <p class="text-gray-600 mb-6">
+      We understand the importance of effective communication in project success. Customers can
+      expect timely and transparent communication throughout the engagement.
+      </p>
+
+      <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+      <svg
+        class="w-6 h-6 text-green-500 mr-2"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 13l4 4L19 7"
+        />
+      </svg>
+      Customer-Centric Approach and Flexibility
+      </h2>
+      <p class="text-gray-600">
+      Our customer-centric approach sets us apart. We tailor our services to meet your unique
+      requirements and adapt to your evolving needs, providing solutions that align perfectly
+      with your objectives.
+      </p>
+      </div>
+      </divv>
+    </div>
+      <!-- Second Column Content -->
+      <div class="text-lg text-justify" >
+        <p class="text-gray-600 mb-6">
+          We at Marketingway Limited are aware of how crucial IT infrastructure management is. Our
+          committed staff makes sure your infrastructure is dependable, safe, and designed to
+          support your company's activities. We provide thorough IT support and helpdesk services
+          to guarantee the smooth operation of your systems and to promptly address any potential
+          technical problems. We place a high priority on your digital security in an era of
+          growing cyber dangers. Our cybersecurity services are intended to protect your systems,
+          data, and priceless assets from possible attacks.
+        </p>
+        <p class="text-gray-600 mb-6">
+          We use strong security procedures, such as incident response, proactive monitoring,
+          vulnerability management, and risk assessments, to keep your company safe. We offer
+          cost-effective, flexible, and scalable cloud computing solutions by using the power of
+          the cloud. Regardless of your needs—cloud migration, cloud-based software development, or
+          infrastructure setup—we assist you in taking advantage of the cloud's capacity to foster
+          creativity and agility.
+        </p>
+        <p class="text-gray-600 mb-6">
+          Our business intelligence and data analytics services enable you to make well-informed decisions, since data is an invaluable resource. We use cutting-edge analytics tools and methodologies to mine your data for insightful information that can help you spot patterns, streamline processes, and take advantage of expansion prospects.
+Marketingwaly is committed to empowering people and organisations via knowledge acquisition, not just providing solutions. Our extensive IT training programmes provide you the know-how to use technology wisely, allowing you to keep ahead of the constantly evolving digital world. As professionals in project management, we use tried-and-true techniques together with industry best practices to guarantee project delivery success. In order to guarantee the success of your project, our skilled project managers work directly with you, offering end-to-end assistance from planning and execution to monitoring and control.
+        </p>
+        <p class="text-gray-600 ">
+          Additionally, we provide managed IT services that free you from the stress of handling
+          regular IT tasks so you can concentrate on your main line of business. Our proactive
+          monitoring, routine upkeep, and effective support services guarantee uninterrupted
+          operations and reduce downtime.
+        </p>
+      </div>
+    </div>
+</div>
+<!-- section end -->
+<!-- why choise us  -->
+<div class="bg-gray-50 py-16 px-6 lg:px-16">
+  <div class="max-w-7xl mx-auto text-center">
+    <!-- Section Title -->
+    <p class="text-green-600 font-semibold text-sm uppercase tracking-wide">What We Do</p>
+    <h2 class="text-3xl font-bold text-gray-800 mt-2">Why Choose Us</h2>
+  </div>
+
+  <!-- Features Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+    <!-- Feature 1 -->
+    <div
+      class="group relative bg-white text-gray-800  rounded-lg shadow-lg p-8 transition-transform transform hover:scale-105 hover:bg-gray-200"
+    >
+      <div class="absolute top-4 left-4 text-9xl  font-bold text-gray-200">01</div>
+      <div class="relative z-10 flex flex-col  items-center text-center">
+        <div class="flex items-center justify-center w-12 h-12 bg-green-500 rounded-full mb-4">
+          <img
+            src="https://img.icons8.com/ios-filled/50/FFFFFF/idea.png"
+            alt="Problem-solving icon"
+            class="w-6 h-6"
+          />
+        </div>
+        <h3 class="text-xl font-bold">Innovative Problem-Solving</h3>
+        <p class="text-sm mt-2 opacity-90 group-hover:opacity-100">
+          Delivering creative solutions to meet challenges and exceed expectations.
+        </p>
+      </div>
+    </div>
+
+    <!-- Feature 2 -->
+    <div
+      class="group relative bg-white text-gray-800 rounded-lg shadow-lg p-8 transition-transform transform hover:scale-105 hover:bg-gray-200"
+    >
+      <div class="absolute top-4 left-4 text-9xl font-bold text-gray-200">02</div>
+      <div class="relative z-10 flex flex-col  items-center text-center">
+        <div class="flex items-center justify-center w-12 h-12 bg-green-500 rounded-full mb-4">
+          <img
+            src="https://img.icons8.com/ios-filled/50/FFFFFF/customer-support.png"
+            alt="Customer customization icon"
+            class="w-6 h-6"
+          />
+        </div>
+        <h3 class="text-xl font-bold">Customer-Centric Customization</h3>
+        <p class="text-sm mt-2 opacity-90 group-hover:opacity-100">
+          Tailored solutions designed to meet the unique needs of every client.
+        </p>
+      </div>
+    </div>
+
+    <!-- Feature 3 -->
+    <div
+      class="group relative bg-white text-gray-800 rounded-lg shadow-lg p-8 transition-transform transform hover:scale-105 hover:bg-gray-200"
+    >
+      <div class="absolute top-4 left-4 text-9xl font-bold text-gray-200">03</div>
+      <div class="relative z-10 flex flex-col  items-center text-center">
+        <div class="flex items-center justify-center w-12 h-12 bg-green-500 rounded-full mb-4">
+          <img
+            src="https://img.icons8.com/ios-filled/50/FFFFFF/handshake.png"
+            alt="Partnership icon"
+            class="w-6 h-6"
+          />
+        </div>
+        <h3 class="text-xl font-bold">Continuous Support and Growth Partnership</h3>
+        <p class="text-sm mt-2 opacity-90 group-hover:opacity-100">
+          Collaborating to ensure sustained success and mutual growth.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- section end choise us -->
+<div class="bg-gray-900 text-white mb-10 py-16 px-6 lg:px-16">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- Card 1 -->
+    <div class="text-center ">
+      <div class="flex items-center justify-center  mb-4">
+        <img
+          src="https://img.icons8.com/ios-filled/50/00FF7F/task.png"
+          alt="Projects Completed"
+          class="w-8 h-8"
+        />
+      </div>
+      <h3 class="text-4xl font-bold text-white counter" data-target="9634">0</h3>
+      <h4 class="text-lg font-semibold text-green-400 mt-2">Projects Completed</h4>
+      <p class="text-sm text-gray-300 mt-2 border-l-2 border-green-600">
+        Our team has successfully executed a diverse range of projects, showcasing our expertise in
+        delivering high-quality solutions across various industries and domains.
+      </p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="text-center">
+      <div class="flex items-center justify-center mb-4">
+        <img
+          src="https://img.icons8.com/ios-filled/50/00FF7F/conference-call.png"
+          alt="Trusted Global Partners"
+          class="w-8 h-8"
+        />
+      </div>
+      <h3 class="text-4xl font-bold text-white counter" data-target="3912">0</h3>
+      <h4 class="text-lg font-semibold text-green-400 mt-2">Trusted Global Partners</h4>
+      <p class="text-sm text-gray-300 mt-2 border-l-2 border-green-600">
+        We have established strong and enduring partnerships with leading companies worldwide,
+        earning their trust through our commitment to excellence and reliability.
+      </p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="text-center">
+      <div class="flex items-center justify-center mb-4">
+        <img
+          src="https://img.icons8.com/ios-filled/50/00FF7F/teamwork.png"
+          alt="Number of Experts"
+          class="w-8 h-8"
+        />
+      </div>
+      <h3 class="text-4xl font-bold text-white counter" data-target="390">0</h3>
+      <h4 class="text-lg font-semibold text-green-400 mt-2">Number of Experts</h4>
+      <p class="text-sm text-gray-300 mt-2 border-l-2 border-green-600">
+        Our organization boasts a highly skilled and proficient team of experts, whose collective
+        knowledge and experience form the backbone of our innovative and cutting-edge solutions.
+      </p>
+    </div>
+  </div>
+</div>
+<script>function animateCounters() {
+  const counters = document.querySelectorAll(".counter");
+  counters.forEach(counter => {
+    const target = +counter.getAttribute("data-target");
+    const speed = 200; // Adjust speed here
+    const increment = target / speed;
+
+    const updateCounter = () => {
+      const current = +counter.innerText;
+
+      if (current < target) {
+        counter.innerText = Math.ceil(current + increment);
+        setTimeout(updateCounter, 10); 
+      } else {
+        counter.innerText = target + "+";
+      }
+    };
+
+    updateCounter();
+  });
+}
+
+// Start animation when the page loads
+window.addEventListener("load", animateCounters);</script>
+
+
+<!-- testimonial start -->
+  <!-- testimonial -->
+  <div class="max-w-7xl my-10 mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-8">
+      <h2 class="text-4xl font-bold text-gray-800">
+        What People Say About Us...
+      </h2>
+      <p class="text-gray-600 mt-2 text-lg">
+        Our clients' satisfaction is our top priority. Read on to see how
+        we've helped businesses like yours succeed!
+      </p>
+    </div>
+
+    <!-- Testimonial Slider -->
+    <div class="relative p-10 overflow-hidden">
+      <!-- Cards Wrapper -->
+      <div id="testimonial-slider" class="flex slide-animation">
+        <!-- Card 1 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg w-full md:w-1/2 lg:w-1/3 shrink-0 mx-4 flex-none testimonial-card"
+        >
+          <div class="flex items-center mb-4">
+            <img
+              src="https://via.placeholder.com/64"
+              alt="Joe Clark"
+              class="w-16 h-16 rounded-full mr-4"
+            />
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800">Joe Clark</h3>
+              <span class="text-gray-500 text-sm">Customer</span>
+            </div>
+          </div>
+          <p class="text-gray-600 text-base">
+            I can't recommend Marketingway highly enough. Their team delivered
+            a final product that exceeded our expectations.
+          </p>
+          <div class="mt-4">
+            <span class="text-yellow-500 text-2xl"
+              >&#9733;&#9733;&#9733;&#9733;&#9733;</span
+            >
+          </div>
+        </div>
+
+        <!-- Additional cards -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg w-full md:w-1/2 lg:w-1/3 shrink-0 mx-4 flex-none testimonial-card"
+        >
+          <div class="flex items-center mb-4">
+            <img
+              src="https://via.placeholder.com/64"
+              alt="Samantha Lee"
+              class="w-16 h-16 rounded-full mr-4"
+            />
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800">
+                Samantha Lee
+              </h3>
+              <span class="text-gray-500 text-sm">Customer</span>
+            </div>
+          </div>
+          <p class="text-gray-600 text-base">
+            They understood our vision and brought it to life in a way we
+            never could have imagined. We're thrilled with the results.
+          </p>
+          <div class="mt-4">
+            <span class="text-yellow-500 text-2xl"
+              >&#9733;&#9733;&#9733;&#9733;&#9733;</span
+            >
+          </div>
+        </div>
+
+        <!-- Additional cards omitted for brevity -->
+
+        <!-- Duplicate first card for seamless looping -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg w-full md:w-1/2 lg:w-1/3 shrink-0 mx-4 flex-none testimonial-card"
+        >
+          <div class="flex items-center mb-4">
+            <img
+              src="https://via.placeholder.com/64"
+              alt="Joe Clark"
+              class="w-16 h-16 rounded-full mr-4"
+            />
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800">Joe Clark</h3>
+              <span class="text-gray-500 text-sm">Customer</span>
+            </div>
+          </div>
+          <p class="text-gray-600 text-base">
+            I can't recommend Marketingway highly enough. Their team delivered
+            a final product that exceeded our expectations.
+          </p>
+          <div class="mt-4">
+            <span class="text-yellow-500 text-2xl"
+              >&#9733;&#9733;&#9733;&#9733;&#9733;</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <button
+        id="prev-btn"
+        class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-200 p-2 sm:p-3 lg:p-4 rounded-full shadow-lg hover:bg-gray-300"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8 text-gray-800"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+      <button
+        id="next-btn"
+        class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-200 p-2 sm:p-3 lg:p-4 rounded-full shadow-lg hover:bg-gray-300"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8 text-gray-800"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <!-- Testmonial card End -->
+<!-- Footer -->
+<footer class="bg-gray-800 text-white">
+    <div class="container mx-auto px-6 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Logo and Description -->
+        <div>
+          <img src="./img/logo.png" alt="Logo" class="mb-4 w-32 ">
+          <p class="text-gray-400 text-sm">
+            Empowering Businesses through Innovation. Custom software and web development for streamlined operations, boosted productivity, and accelerated growth. Your trusted partner in the digital landscape.
+          </p>
+        </div>
+  
+        <!-- Our Services -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Our Services</h3>
+          <ul>
+            <li class="mb-2"><a href="#" class="hover:text-blue-400">Web Development</a></li>
+            <li class="mb-2"><a href="#" class="hover:text-blue-400">UI/UX Design</a></li>
+            <li class="mb-2"><a href="#" class="hover:text-blue-400">Search Engine Optimization</a></li>
+            <li class="mb-2"><a href="#" class="hover:text-blue-400">Application Development</a></li>
+            <li class="mb-2"><a href="#" class="hover:text-blue-400">Logo Designing</a></li>
+            <li><a href="#" class="hover:text-blue-400">Social Media Marketing</a></li>
+          </ul>
+        </div>
+  
+        <!-- Company -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Company</h3>
+          <ul>
+            <li class="mb-2"><a href="#" class="hover:text-blue-400">About us</a></li>
+            <li class="mb-2"><a href="#" class="hover:text-blue-400">Latest events</a></li>
+            <li class="mb-2"><a href="#" class="hover:text-blue-400">How it Works</a></li>
+            <li class="mb-2"><a href="#" class="hover:text-blue-400">News & articles</a></li>
+            <li><a href="#" class="hover:text-blue-400">Contact us</a></li>
+          </ul>
+        </div>
+  
+        <!-- Contact -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Contact</h3>
+          <ul>
+            <li class="mb-2 flex items-center"><i class="fas fa-phone-alt mr-2"></i> Phone: <a href="tel:+923292150018" class="hover:text-blue-400">+92-3292150018</a></li>
+            <li class="mb-2 flex items-center"><i class="fas fa-envelope mr-2"></i> Email: <a href="mailto:support@marketingwaly.com" class="hover:text-blue-400 ml-2"> support@marketingwaly.com</a></li>
+            <li class="mb-2 flex items-center"><i class="fas fa-envelope mr-2"></i> Email: <a href="mailto:info@marketingwaly.com" class="hover:text-blue-400 ml-2"> info@marketingwaly.com</a></li>
+            <li class="mb-2 flex items-center"><i class="fas fa-envelope mr-2"></i> Email: <a href="mailto:sales@marketingwaly.com" class="hover:text-blue-400 ml-2"> sales@marketingwaly.com</a></li>
+            <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i> Address: 43c, 8th St Phase, Badar Commercial Area,KHI-75500</li>
+          </ul>
+        </div>
+      </div>
+  
+      <hr class="my-6 border-gray-600" />
+  
+      <!-- Newsletter and Social Media -->
+      <div class="flex flex-col md:flex-row items-center justify-between">
+        <div class="flex flex-col md:flex-row items-center gap-4 space-x-4 mb-4 md:mb-0">
+          <input
+            type="email"
+            placeholder="Email address"
+            class="px-4 py-2 w-64 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-300"
+          >
+            Subscribe
+          </button>
+        </div>
+  
+      
+  
+      <div class="text-center mt-6 text-gray-500 text-sm">
+        &copy; 2023 MarketingWaly. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+  
+
+  <script src="app.js"></script>
+</body>
+</html>
